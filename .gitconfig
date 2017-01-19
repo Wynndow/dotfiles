@@ -15,4 +15,9 @@
 	default = simple
 [core]
 	editor = /usr/bin/vim
-	excludesfile = *.cache
+[fetch]
+    # Remove deleted branches on fetch
+    prune = true
+[color]
+    # Color command output when appropriate
+    ui = auto
