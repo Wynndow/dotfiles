@@ -1,0 +1,13 @@
+# Global OS X
+.DS_Store
+
+# Python
+*.py[co]
+.ropeproject
+.cache
+
+# Ruby
+.bundle
+
+# ctags
+tags
