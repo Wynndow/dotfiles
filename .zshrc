@@ -2,6 +2,9 @@
 export ZSH=/Users/christopherwynne/.oh-my-zsh
 source /usr/local/bin/virtualenvwrapper.sh
 
+GPG_TTY=$(tty)
+export GPG_TTY
+
 
 man() {
 	env \
