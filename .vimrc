@@ -8,7 +8,12 @@ Plugin 'kannokanno/previm'
 Plugin 'tpope/vim-surround'
 Plugin 'morhetz/gruvbox'
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'scrooloose/nerdtree'
 call vundle#end()
+
+" Toggle NERDTree
+nmap <Leader>e :NERDTreeToggle<CR>
+nmap <Leader>f :NERDTreeFind<CR>
 
 filetype plugin indent on
 set encoding=utf-8
@@ -62,7 +67,7 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 augroup END
 
-" When the type of shell script is /bin/sh, assume a POSIX-compatible
+" When the type of shell script is /bin/sh, assume a POSIX-compatible 
 " shell for syntax highlighting purposes.
 let g:is_posix = 1
 
