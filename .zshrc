@@ -1,11 +1,9 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/christopherwynne/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 source /usr/local/bin/virtualenvwrapper.sh
 
-GPG_TTY=$(tty)
-export GPG_TTY
 
-
+# Colored `man` pages on OSX
 man() {
 	env \
 		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -69,7 +67,7 @@ ZSH_THEME="af-magic"
 plugins=(git)
 
 # User configuration
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
+# export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -113,6 +111,12 @@ export NVM_DIR="/Users/christopherwynne/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH=~/.local/bin:$PATH # Add EB CLI to path
+export PATH="/usr/local/sbin:$PATH" # Summit to do with Homebrew
+eval "$(direnv hook zsh)" # Make direnv work
+ssh-add -A &>/dev/null # Add all ssh keys with passsphrase in keychain to ssh agent. See here: https://dzone.com/articles/ssh-keys-in-macos-sierra
+GPG_TTY=$(tty)
+export GPG_TTY
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
