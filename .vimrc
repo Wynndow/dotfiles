@@ -119,6 +119,9 @@ endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
+" Easily toggle paste mode (for pasting from other applications without it going weird)
+set pastetoggle=<F2>
+
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
@@ -157,6 +160,10 @@ set foldlevel=99
 
 " Enable folding with the spacebar
 nnoremap <space> za
+
+" Switch tabs easily with Shift+LeftRight
+map <S-Right> :tabn<CR>
+map <S-Left>  :tabp<CR>
 
 "Want to see the docstrings for folded code?
 "let g:SimpylFold_docstring_preview=1
