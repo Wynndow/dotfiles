@@ -182,9 +182,11 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
 
-" Always use vertical diffs
-set diffopt+=vertical
-
+" Always use vertical diffs - https://www.micahsmith.com/blog/2019/11/fixing-vim-invalid-argument-diffopt-iwhite/
+if &diff
+    set diffopt-=internal
+    set diffopt+=vertical
+endif
 " Local config
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local

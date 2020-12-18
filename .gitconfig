@@ -3,6 +3,7 @@
 # Please adapt and uncomment the following lines:
 	name = Chris Wynne
 	email = christopher.wynne@digital.cabinet-office.gov.uk
+  signingkey = "0x3F39649334A4B606"
 [alias]
   co = checkout
   ci = commit
@@ -15,9 +16,29 @@
 	default = simple
 [core]
 	editor = /usr/bin/vim
+	excludesfile = /Users/christopherwynne/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [fetch]
     # Remove deleted branches on fetch
     prune = true
 [color]
     # Color command output when appropriate
-    ui = auto
+	ui = true
+[merge]
+	conflictstyle = diff3
+[pager]
+	branch = false
+[commit]
+	gpgsign = false
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

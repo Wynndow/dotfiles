@@ -1,7 +1,5 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
-source /usr/local/bin/virtualenvwrapper.sh
-
 
 # Colored `man` pages on OSX
 man() {
@@ -15,7 +13,6 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[1;32m") \
 			man "$@"
 }
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -69,9 +66,7 @@ plugins=(git)
 # User configuration
 # export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
 # export MANPATH="/usr/local/man:$MANPATH"
-
 source $ZSH/oh-my-zsh.sh
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -101,24 +96,38 @@ alias ga="git add"
 alias gc="git commit"
 alias activate="source ./venv/bin/activate"
 alias go="git checkout"
+unalias gds # to prevent conflict with the GDS cli
 alias myip="ipconfig getifaddr en0"
-alias weather="curl wttr.in"
+alias weather="curl wttr.in/~london"
+alias decode-cert="pbpaste | sed '/-----/d' | base64 -D | openssl x509 -inform der -text"
 
 . `brew --prefix`/etc/profile.d/z.sh
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-export NVM_DIR="/Users/christopherwynne/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH=~/.local/bin:$PATH # Add EB CLI to path
-export PATH="/usr/local/sbin:$PATH" # Summit to do with Homebrew
-eval "$(direnv hook zsh)" # Make direnv work
-ssh-add -A &>/dev/null # Add all ssh keys with passsphrase in keychain to ssh agent. See here: https://dzone.com/articles/ssh-keys-in-macos-sierra
+export PATH="/usr/local/opt/python/libexec/bin:$PATH" # Add unversioned Python3 symlinks to path - installed by Brew
+export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
+export PATH="/opt/apache-maven-3.5.4/bin:$PATH" # Add maven to PATH
+export PATH="/Users/christopherwynne/go/bin:$PATH" # Add Go to PATH
+export PATH="$PATH:/usr/local/kubebuilder/bin" # Add kubebuilder to PATH
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" # Use gnu-sed as sed instead of gsed (installed with brew)
+export GOPATH="/Users/christopherwynne/go"
+export JAVA_HOME=$(/usr/libexec/java_home -v 11) # Set Java verison to 11
+export VIRTUALENVWRAPPER_PYTHON="/usr/local/opt/python/libexec/bin/python" 
+source /usr/local/bin/virtualenvwrapper.sh
+export WORK_ON=~/Envs # Set home directory for Virtualenvwrapper
+export GIPHY_API_KEY=
+# export CPPFLAGS="-I/usr/local/opt/openssl/include" # Link to brew installed openssl - clang craps out otherwise
+# export LDFLAGS="-L/usr/local/opt/openssl/lib" # Link to brew installed openssl - clang craps out otherwise
+eval "$(rbenv init -)" # Make rbenv do it's thing
 GPG_TTY=$(tty)
 export GPG_TTY
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export SNYK_TEST=
+
+eval "$(direnv hook zsh)" # hook for direnv
 
 # added by travis gem
 [ -f /Users/christopherwynne/.travis/travis.sh ] && source /Users/christopherwynne/.travis/travis.sh
+# export NVM_DIR="$HOME/.nvm"          # NVM stuff commented out cos it makes things slow as shit.
+# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+export PATH="/usr/local/opt/node@10/bin:$PATH"
