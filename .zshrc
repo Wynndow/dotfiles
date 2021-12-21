@@ -91,6 +91,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias git="/usr/local/bin/git" # use brew installed git instead of system git
 alias gs="git status"
 alias ga="git add"
 alias gc="git commit"
@@ -100,19 +101,18 @@ unalias gds # to prevent conflict with the GDS cli
 alias myip="ipconfig getifaddr en0"
 alias weather="curl wttr.in/~london"
 alias decode-cert="pbpaste | sed '/-----/d' | base64 -D | openssl x509 -inform der -text"
+alias xml="xmllint --format -"
+alias vpn="gds vpn connect"
 
 . `brew --prefix`/etc/profile.d/z.sh
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="/usr/local/opt/python/libexec/bin:$PATH" # Add unversioned Python3 symlinks to path - installed by Brew
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 export PATH="/opt/apache-maven-3.5.4/bin:$PATH" # Add maven to PATH
 export PATH="/Users/christopherwynne/go/bin:$PATH" # Add Go to PATH
 export PATH="$PATH:/usr/local/kubebuilder/bin" # Add kubebuilder to PATH
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" # Use gnu-sed as sed instead of gsed (installed with brew)
-export GOPATH="/Users/christopherwynne/go"
-export JAVA_HOME=$(/usr/libexec/java_home -v 11) # Set Java verison to 11
-export VIRTUALENVWRAPPER_PYTHON="/usr/local/opt/python/libexec/bin/python" 
-source /usr/local/bin/virtualenvwrapper.sh
+# export GOPATH="/Users/christopherwynne/go" commented out as apparently not recommend from 1.16 due to Modules
+export JAVA_HOME=$(/usr/libexec/java_home -v 11) # Set Java version
 export WORK_ON=~/Envs # Set home directory for Virtualenvwrapper
 export GIPHY_API_KEY=
 # export CPPFLAGS="-I/usr/local/opt/openssl/include" # Link to brew installed openssl - clang craps out otherwise
@@ -121,13 +121,23 @@ eval "$(rbenv init -)" # Make rbenv do it's thing
 GPG_TTY=$(tty)
 export GPG_TTY
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export SNYK_TEST=
 
-eval "$(direnv hook zsh)" # hook for direnv
+# pyenv init
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+# Set up virutalenvwrapper
+export WORKON_HOME=~/.virtualenvs && mkdir -p $WORKON_HOME
+export VIRTUALENVWRAPPER_PYTHON=/Users/christopherwynne/.pyenv/shims/python
+source ~/.pyenv/versions/3.9.0/bin/virtualenvwrapper.sh 
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
-# added by travis gem
-[ -f /Users/christopherwynne/.travis/travis.sh ] && source /Users/christopherwynne/.travis/travis.sh
-# export NVM_DIR="$HOME/.nvm"          # NVM stuff commented out cos it makes things slow as shit.
-# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-export PATH="/usr/local/opt/node@10/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Add maven to path
+export PATH="$PATH:$HOME/apache-maven-3.8.4/bin"
